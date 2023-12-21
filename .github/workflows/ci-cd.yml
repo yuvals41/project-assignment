@@ -1,0 +1,59 @@
+name: Manual Deployment and Testing
+
+on: 
+  workflow_dispatch:
+    inputs:
+      serviceName:
+        description: 'Service Name'
+        required: true
+        type: string
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Registry
+      uses: docker/login-action@v1
+      with:
+        username: yuvals41
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v2
+      with:
+        context: Application/
+        push: true
+        tags: yuvals41/webapp:${{ github.run_number }}
+
+    - name: Install Helm
+      uses: azure/setup-helm@v1
+
+    - name: Deploy to Kubernetes
+      working-directory: Kubernetes
+      continue-on-error: true
+      run: |
+        helm upgrade --wait --install ${{ github.event.inputs.serviceName }} . \
+          --values ${{ github.event.inputs.serviceName }}-values.yaml \
+          --namespace default \
+          --set image.tag=${{ github.run_number }}
+
+    - name: Run Tests for uselessfacts
+      continue-on-error: true
+      if: ${{ github.event.inputs.serviceName == 'useless' }}
+      run: |
+        curl --fail -s http://<domain-1>/uselessfact || (echo "uselessfact test failed" && exit 1)
+        curl --fail -s http://<domain-1>/ready || (echo "ready test for useless failed" && exit 1)
+
+
+    - name: Run Tests for funnyfacts
+      continue-on-error: true
+      if: ${{ github.event.inputs.serviceName == 'funny' }}
+      run: |
+        curl --fail -s http://<domain-2>/funnyfact || exit 1
+        curl --fail -s http://<domain-2>/ready || exit 1

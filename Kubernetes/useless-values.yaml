@@ -1,0 +1,46 @@
+app: useless
+
+deployment:
+  image:
+    registry: yuvals41
+    tag: v1
+    pullPolicy: Always
+  rollingUpdate:
+    maxUnavailable: 50%
+    maxSurge: 50%
+  ports:
+    app: 8080
+  env:
+    - name: "USELESS_FACT_URL"
+      value: "https://uselessfacts.jsph.pl/api/v2/facts/random"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      #cpu: "1500m"
+  healthProbes: 
+    enabled: true
+    readinessProbe:
+      enabled: true
+      path: /ready
+      port: 8080
+    livenessProbe:
+      enabled: true
+      path: /ready
+      port: 8080
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1500
+    runAsGroup: 1500
+  podAnnotations: {}
+
+service:
+  type: ClusterIP
+  protocol: TCP
+  port: 80
+
+ingress:
+  enabled: true
+  path: /uselessfact
