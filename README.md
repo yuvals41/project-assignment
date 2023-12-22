@@ -1,5 +1,5 @@
 # project-assignment
-For this project i used kind cluster because its smooth and flexable
+For this project i used kind cluster because its lightweight and flexible
 
 I used it on my linux machine
 
@@ -41,10 +41,12 @@ nodes:
 EOF
 ```
 
+
 ## Than make sure to use the cluster
 ```
 kubectl config use-context kind-kind
 ```
+
 
 ## Install nginx with the following configuration
 ```
@@ -56,6 +58,7 @@ helm upgrade --install -n kube-system ingress-nginx ingress-nginx/ingress-nginx 
     --set controller.hostPort.enabled=true \
     --set controller.admissionWebhooks.enabled=false
 ```
+
 
 ## Install both services
 ```
@@ -69,6 +72,7 @@ After one minute because the nginx controller takes a few seconds to be ready yo
 curl http://localhost/funnyfact
 curl http://localhost/uselessfact
 ```
+
 
 ## NOTES
 

@@ -43,4 +43,5 @@ service:
 
 ingress:
   enabled: true
+  hostname: localhost
   path: /funnyfact

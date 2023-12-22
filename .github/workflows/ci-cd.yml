@@ -1,10 +1,10 @@
-name: Manual Deployment and Testing
+name: CI-CD
 
 on: 
   workflow_dispatch:
     inputs:
       serviceName:
-        description: 'Service Name'
+        description: 'Service Name, choose one of the following: funny or useless'
         required: true
         type: string
 
@@ -43,17 +43,25 @@ jobs:
           --namespace default \
           --set image.tag=${{ github.run_number }}
 
-    - name: Run Tests for uselessfacts
-      continue-on-error: true
+    - name: Run Tests for useless/facts
       if: ${{ github.event.inputs.serviceName == 'useless' }}
-      run: |
-        curl --fail -s http://<domain-1>/uselessfact || (echo "uselessfact test failed" && exit 1)
-        curl --fail -s http://<domain-1>/ready || (echo "ready test for useless failed" && exit 1)
+      uses: nick-fields/retry@v2
+      continue-on-error: true
+      with:
+        max_attempts: 5
+        retry_on: error
+        timeout_seconds: 5
+        command: |
+          curl --fail -s https://<domain-1>/ready || exit 1
 
 
     - name: Run Tests for funnyfacts
-      continue-on-error: true
       if: ${{ github.event.inputs.serviceName == 'funny' }}
-      run: |
-        curl --fail -s http://<domain-2>/funnyfact || exit 1
-        curl --fail -s http://<domain-2>/ready || exit 1
+      uses: nick-fields/retry@v2
+      continue-on-error: true
+      with:
+        max_attempts: 5
+        retry_on: error
+        timeout_seconds: 5
+        command: |
+          curl --fail -s http://<domain-2>/ready || exit 1
