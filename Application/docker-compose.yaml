@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  funnyfact:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: funnyfact
+    restart: always
+    environment:
+      FUNNY_FACT_URL: "https://api.chucknorris.io/jokes/random"
+    ports:
+      - 8080:8080
+
+  uselessfact:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uselessfact
+    environment:
+      USELESS_FACT_URL: "https://uselessfacts.jsph.pl/api/v2/facts/random"
+    restart: always
+    ports:
+      - 8081:8080

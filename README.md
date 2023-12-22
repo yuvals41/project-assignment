@@ -5,20 +5,15 @@ I used it on my linux and windows machines it should work on Mac also
 
 # For local Tests with docker only
 ```
-docker buildx build -t yuvals41/webapp:v1 Application/
-```
-
-then run different containers with different environment variables
-
-```
-docker run -p 8080:8080 -d -e FUNNY_FACT_URL=https://api.chucknorris.io/jokes/random yuvals41/webapp:v1
-docker run -p 8081:8080 -d -e USELESS_FACT_URL=https://uselessfacts.jsph.pl/api/v2/facts/random yuvals41/webapp:v1
+docker compose --file Application/docker-compose.yaml up -d
 ```
 
 test it
 ```
 curl localhost:8080/funnyfact
+curl localhost:8080/ready
 curl localhost:8081/uselessfact
+curl localhost:8081/ready
 ```
 
 # For Local Kubernetes
