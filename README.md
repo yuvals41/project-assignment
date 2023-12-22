@@ -86,7 +86,7 @@ curl http://localhost/uselessfact
 - In the assignment it was written to use two domains, because its a local development its not possible(unless you change the hosts file) so i used localhost for this i hope its okay
 
 - In the assignment, in the github actions part it was written to deploy the helm chart with github actions workflow, because its a local cluster its not possible to a github machine to deploy it on my local cluster so i wrote the commands to deploy my chart but i ignored the error, you can see it on .github/workflows/ci-cd.yml file.
-  basically i assume the the pipeline will deploy to a cluster where the applictions are exposed in domain-1 and domain-2 to the world, but i my local cluster chart i exposed the ingress only to localhoat with the two routes
+  basically i assume the the pipeline will deploy to a cluster where the applictions are exposed in domain-1 and domain-2 to the world, but on my local cluster i exposed the ingress only to localhost with the two routes
 
 
 Enjoy and Thank you!
