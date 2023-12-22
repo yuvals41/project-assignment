@@ -43,7 +43,7 @@ jobs:
           --namespace default \
           --set image.tag=${{ github.run_number }}
 
-    - name: Run Tests for useless/facts
+    - name: Run Tests for uselessfacts
       if: ${{ github.event.inputs.serviceName == 'useless' }}
       uses: nick-fields/retry@v2
       continue-on-error: true
