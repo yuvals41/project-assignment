@@ -49,7 +49,7 @@ EOF
 ```
 
 
-## Than make sure to use the cluster
+## Then make sure to use the cluster
 ```
 kubectl config use-context kind-kind
 ```
@@ -83,10 +83,11 @@ curl http://localhost/uselessfact
 
 ## NOTES
 
-- In the assignment it was written to use two domains, because its a local development its not possible(unless you change the hosts file) so i used localhost for this i hope its okay
+- In the assignment, it was written to use two domains, because it's a local development it's not possible(unless you change the hosts file) so I used localhost for this I hope it's okay
 
-- In the assignment, in the github actions part it was written to deploy the helm chart with github actions workflow, because its a local cluster its not possible to a github machine to deploy it on my local cluster so i wrote the commands to deploy my chart but i ignored the error, you can see it on .github/workflows/ci-cd.yml file.
-  basically i assume the the pipeline will deploy to a cluster where the applictions are exposed in domain-1 and domain-2 to the world, but on my local cluster i exposed the ingress only to localhost with the two routes
+- In the assignment, in the GitHub actions part it was written to deploy the helm chart with GitHub actions workflow, because it's a local cluster it's not possible to a GitHub machine to deploy it on my local cluster so I wrote the commands to deploy my chart but I ignored the error, you can see it on .github/workflows/ci-cd.yml file.
+  basically, I assume the the pipeline will deploy to a cluster where the applications are exposed in domain-1 and domain-2 to the world, but on my local cluster chart I exposed the ingress only to localhost with the two routes so you can see I exposed them properly
+  Of course, if it was on a public Kubernetes cluster I would expose those domains on the ingress and route them to the right microservices
 
-
+If you have any questions or wonders feel free to ask me what i did and why
 Enjoy and Thank you!
