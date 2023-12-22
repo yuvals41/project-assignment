@@ -21,10 +21,10 @@ docker compose --file Application/docker-compose.yaml up -d
 
 test it
 ```
-curl localhost:8080/funnyfact
-curl localhost:8080/ready
-curl localhost:8081/uselessfact
-curl localhost:8081/ready
+curl http://localhost:8080/funnyfact
+curl http://localhost:8080/ready
+curl http://localhost:8081/uselessfact
+curl http://localhost:8081/ready
 ```
 
 # For Local Kubernetes
