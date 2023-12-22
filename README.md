@@ -3,6 +3,13 @@ For this project i used kind cluster because its lightweight and flexible
 
 I used it on my linux machine
 
+## prerequisites
+[docker](https://docs.docker.com/engine/install/)
+
+[helm](https://helm.sh/docs/intro/install/)
+
+[kubectl](https://kubernetes.io/docs/tasks/tools/)
+
 ## To download 
 
 Mac:
