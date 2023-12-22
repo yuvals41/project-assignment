@@ -1,14 +1,35 @@
-# project-assignment
+# Project-assignment
 For this project i used kind cluster because its lightweight and flexible
 
-I used it on my linux machine
+I used it on my linux and windows machines it should work on Mac also
 
-## prerequisites
+# For local Tests with docker only
+```
+docker buildx build -t yuvals41/webapp:v1 Application/
+```
+
+then run different containers with different environment variables
+
+```
+docker run -p 8080:8080 -d -e FUNNY_FACT_URL=https://api.chucknorris.io/jokes/random yuvals41/webapp:v1
+docker run -p 8081:8080 -d -e USELESS_FACT_URL=https://uselessfacts.jsph.pl/api/v2/facts/random yuvals41/webapp:v1
+```
+
+test it
+```
+curl localhost:8080/funnyfact
+curl localhost:8081/uselessfact
+```
+
+# For Local Kubernetes
+## Prerequisites
 [docker](https://docs.docker.com/engine/install/)
 
 [helm](https://helm.sh/docs/intro/install/)
 
 [kubectl](https://kubernetes.io/docs/tasks/tools/)
+
+And git clone the repo
 
 ## To download 
 
@@ -28,7 +49,7 @@ Windows
 choco install kind
 ```
 
-## Create a kind cluster with the following configuration in order for us to reach the cluster from the localhost(make sure port 80 is available)
+## Create a kind cluster with the following configuration in order for us to reach the cluster from the localhost(make sure port 80 is available), on windows use git bash
 ```
 cat <<EOF | kind create cluster --config=-
 kind: Cluster
@@ -55,7 +76,7 @@ kubectl config use-context kind-kind
 ```
 
 
-## Install nginx with the following configuration
+## Install nginx ingress controller with the following configuration
 ```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 
@@ -69,8 +90,8 @@ helm upgrade --install -n kube-system ingress-nginx ingress-nginx/ingress-nginx 
 
 ## Install both services
 ```
-helm upgrade --install -f useless-values.yaml useless Kubernetes/
-helm upgrade --install -f funny-values.yaml funny Kubernetes/
+helm upgrade --install -f Kubernetes/useless-values.yaml useless Kubernetes/
+helm upgrade --install -f Kubernetes/funny-values.yaml funny Kubernetes/
 ```
 
 After one minute because the nginx controller takes a few seconds to be ready you can try to access the endpoints
@@ -89,5 +110,6 @@ curl http://localhost/uselessfact
   basically, I assume the the pipeline will deploy to a cluster where the applications are exposed in domain-1 and domain-2 to the world, but on my local cluster chart I exposed the ingress only to localhost with the two routes so you can see I exposed them properly
   Of course, if it was on a public Kubernetes cluster I would expose those domains on the ingress and route them to the right microservices
 
-If you have any questions or wonders feel free to ask me what i did and why
+If you have any questions or wonders feel free to ask me what and why i did
+
 Enjoy and Thank you!
