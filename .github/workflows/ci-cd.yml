@@ -52,7 +52,9 @@ jobs:
         retry_on: error
         timeout_seconds: 5
         command: |
-          curl --fail -s https://<domain-1>/ready || exit 1
+          (curl --fail -s https://<domain-1>/ready || exit 1) &&
+          (curl --fail -s https://<domain-1>/uselessfact || exit 1)
+
 
 
     - name: Run Tests for funnyfacts
@@ -64,4 +66,5 @@ jobs:
         retry_on: error
         timeout_seconds: 5
         command: |
-          curl --fail -s http://<domain-2>/ready || exit 1
+          (curl --fail -s http://<domain-2>/ready || exit 1) &&
+          (curl --fail -s https://<domain-1>/funnyfact || exit 1)
