@@ -111,7 +111,7 @@ curl http://localhost/uselessfact
 
 - In the assignment, it was written to use two domains, because it's a local development it's not possible(unless you change the hosts file) so I used localhost for this I hope it's okay
 
-- In the assignment, in the GitHub actions part it was written to deploy the helm chart with GitHub actions workflow, because it's a local cluster it's not possible to a GitHub machine to deploy it on my local cluster so I wrote the commands to deploy my chart but I ignored the error because it will fail, I did it for reference points, you can see it on .github/workflows/ci-cd.yml file.
+- In the assignment, in the GitHub actions part it was written to deploy the helm chart with GitHub actions workflow, because it's a local cluster it's not possible to a GitHub machine to deploy it on my local cluster so I wrote the commands to deploy my chart but I ignored the error because it will fail, I did it for reference points and so it will continue to the next step, you can see it on .github/workflows/ci-cd.yml file.
   basically, I assume the the pipeline will deploy to a cluster where the applications are exposed in domain-1 and domain-2 to the world, but on my local cluster chart I exposed the ingress only to localhost with the two routes so you can see I exposed them properly
   Of course, if it was on a public Kubernetes cluster I would expose those domains on the ingress and route them to the right microservices
 
