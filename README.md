@@ -3,6 +3,17 @@ For this project i used kind cluster because its lightweight and flexible
 
 I used it on my linux and windows machines it should work on Mac also
 
+
+
+# Prerequisites
+[docker](https://docs.docker.com/engine/install/)
+
+[helm](https://helm.sh/docs/intro/install/)
+
+[kubectl](https://kubernetes.io/docs/tasks/tools/)
+
+git clone the repo
+
 # For local Tests with docker only
 ```
 docker compose --file Application/docker-compose.yaml up -d
@@ -17,14 +28,6 @@ curl localhost:8081/ready
 ```
 
 # For Local Kubernetes
-## Prerequisites
-[docker](https://docs.docker.com/engine/install/)
-
-[helm](https://helm.sh/docs/intro/install/)
-
-[kubectl](https://kubernetes.io/docs/tasks/tools/)
-
-And git clone the repo
 
 ## To download
 
